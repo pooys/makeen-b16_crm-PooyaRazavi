@@ -60,29 +60,31 @@
         </tr>
       </thead>
       <tbody>
-@foreach ($userss as $user )
 
 
+        @foreach ($users as $user )
+
+        @endforeach
             <tr>
-              <td>{{ $user->id }}</td>
-              <td>{{ $user->name }}</td>
-              <td>{{ $user->codemeli }}</td>
-              <td>{{ $user->mobile }}</td>
-              <td>{{ $user->tarikht_tavalod }}</td>
+              <td>{{ $user->id}}</td>
+              <td>{{ $user->name}}</td>
+              <td>{{ $user->codemeli}}</td>
+              <td>{{ $user->mobile}}</td>
+              <td>{{ $user->tarikht_tavalod}}</td>
               {{-- <td>{{ $user->email }}</td> --}}
 
 
 
               <td>
-                <a href="/userss/edit/{{ $user->id }}">edit</a>/
-                <form action="/userss/delete" method="post">
+                <a href="/users/edit{{ $user->id }}">Edit</a>/
+                <form action="/users/delete/{{ $user->id }}" method="post">
                   @csrf
                   @method('delete')
                   <input type="submit" value="Delete">
                 </form>
                 </td>
               </tr>
-              @endforeach
+
 
           </td>
             </tr>

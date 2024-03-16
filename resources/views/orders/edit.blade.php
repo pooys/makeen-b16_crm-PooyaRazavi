@@ -42,7 +42,7 @@
 
                     <div class="container">
 
-                        <form action="/ordes/edit/{{ $order->id}}" method="post">
+                        <form action="/orders/edit/{{ $order->id}}" method="post">
                             @csrf
                           <h2>ویرایش سفارشات </h2>
 

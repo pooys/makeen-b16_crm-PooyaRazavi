@@ -58,10 +58,12 @@
           <th>قیمت</th>
 
         </tr>
+
       </thead>
+      @foreach ($orders as $order)
       <tbody>
 
-                @foreach ($orders as $order)
+
 
 
             <tr>
@@ -72,7 +74,7 @@
 
 
               <td>
-              <a href="/ordes/edit/{{ $order->id }}">edit</a>/
+              <a href="/ordes/edit/{{ $order->id }}">edit</a> /
               <form action="/orders/delete/{{ $order->id }}" method="post">
                 @csrf
                 @method('delete')
@@ -80,10 +82,11 @@
               </form>
               </td>
             </tr>
-            @endforeach
+
         </td>
         </tr>
       </tbody>
+      @endforeach
     </table>
   </div>
     </body>

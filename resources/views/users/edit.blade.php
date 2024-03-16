@@ -41,7 +41,8 @@
       </nav>
 
                     <div class="container">
-                        <form action="/userss/edit{id}" method="post">
+                        <form action="/users/edit/{{ $user->id }}" method="post">
+                            @csrf
                           <h2>ویرایش کاربر </h2>
 
                           <div class="mb-3 mt-3">
@@ -99,20 +100,6 @@
 
                             </select>
 
-{{-- 
-                          </div>
-
-                          <div class="mb-3 mt-3">
-                            <label class="form-label">ایمیل:</label>
-                            <input
-                              type="text"
-                              class="form-control"
-                              placeholder="ایمیل را وارد نمایید"
-                              name="email"
-                              value="{{ $user->email }}"
-
-                            />
-                          </div> --}}
 
                           <div class="mb-3">
                             <label class="form-label">رمز عبور:</label>

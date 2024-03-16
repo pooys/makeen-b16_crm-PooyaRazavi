@@ -112,22 +112,35 @@ Route::delete('/orders/delete/{id}', function ($id) {
 });
 
 
-Route::get('/userss/create', function () {
-    return view('userss.create');
-});
-Route::get('/userss/edit{id}', function ($id) {
-    $user = DB::table('userss')->where('id', $id)->first();
-    return view('userss.edit', ['userss'=>$user]);
-});
-Route::get('/userss/index', function () {
-   $userss = DB::table('userss')->get();
-    return view('userss.index',["userss" => $userss]);
-});
-
-Route::post('/userss/create', function (Request $request ) {
 
 
-        DB::table('userss')->insert([
+
+
+Route::get('/users/create', function () {
+    return view('users.create');
+});
+Route::get('/users/edit{id}', function ($id) {
+    $user = DB::table('users')->where('id', $id)->first();
+    return view('users.edit', ['user' => $user]);
+});
+Route::get('/users/index', function () {
+   $users = DB::table('users')->get();
+   return view('users.index',["users" => $users]);
+
+});
+
+
+
+
+
+
+
+
+
+Route::post('/users/create', function (Request $request ) {
+
+
+        DB::table('users')->insert([
             "name" => $request->name,
             "codemeli" => $request->codemeli,
             "mobile" => $request->mobile,
@@ -138,9 +151,9 @@ Route::post('/userss/create', function (Request $request ) {
         ]);
         return "product added";
 });
-Route::post('/userss/edit{id}', function (Request $request,$id) {
+Route::post('/users/edit/{id}', function (Request $request,$id) {
 
-    DB::table('userss')->where('id',$id)->update([
+    DB::table('users')->where('id', $id)->update([
         "name" => $request->name,
         "codemeli" => $request->codemeli,
         "mobile" => $request->mobile,
@@ -151,3 +164,10 @@ Route::post('/userss/edit{id}', function (Request $request,$id) {
     ]);
     return "update added";
 });
+Route::delete('/users/delete/{id}', function ($id) {
+
+    DB::table('users')->where('id', $id)->delete();
+
+    return redirect('/users/index');
+});
+

@@ -73,7 +73,7 @@
 
               <td>
                     <a href="/products/edit/{{$product->id}}">edit</a>
-                    <form action="/products/delete/{{$product->id}}" method="POST">
+                    <form action="/products/delete/{{$product->id}}" method="post">
                         @csrf
                         @method('delete')
                         <input type="submit" value="Delete">

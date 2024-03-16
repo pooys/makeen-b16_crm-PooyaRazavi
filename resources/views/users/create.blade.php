@@ -40,7 +40,7 @@
       </nav>
 
                 =    <div class="container">
-      <form action="/userss/create" method="post">
+      <form action="/users/create" method="post">
         @csrf
         <h2>ثبت کاربر جدید</h2>
         <div class="mb-3 mt-3">
@@ -91,15 +91,6 @@
           </select>
         </div>
 
-        {{-- <div class="mb-3 mt-3">
-          <label class="form-label">ایمیل:</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="ایمیل را وارد نمایید"
-            name="email"
-          />
-        </div> --}}
 
         <div class="mb-3">
           <label class="form-label">رمز عبور:</label>
