@@ -51,6 +51,10 @@
 
             name="name_product"
           />
+          @if ($errors->has('name_product'))
+          <li style="color: red">{{$errors->first('name_product')}}</li>
+
+  @endif
         </div>
 
         <div class="mb-3 mt-3">
@@ -61,6 +65,10 @@
 
             name="brand"
           />
+          @if ($errors->has('brand'))
+          <li style="color: red">{{$errors->first('brand')}}</li>
+
+  @endif
         </div>
 
         <div class="mb-3 mt-3">

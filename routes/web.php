@@ -40,6 +40,14 @@ Route::get('products/list', function () {
 //products post route
 Route::post('/products/create', function (Request $request) {
 
+    $validated = $request->validate([
+        'name_product' => 'required',
+        'brand' => 'required',
+
+    ],[
+            'name_products.required'=>'لطفا اسم سفارش را وارد کنید',
+            'brand.required'=>'لطفا اسم برند را وارد کنید',
+    ]);
     DB::table('products')->insert([
         "name_product" => $request->name_product,
         "brand" => $request->brand,
@@ -86,6 +94,14 @@ Route::get('/orders/index/', function () {
 
 Route::post('/orders/create', function (Request $request) {
 
+    $validated = $request->validate([
+        'name' => 'required',
+        'brand' => 'required',
+
+    ],[
+            'name.required'=>'لطفا اسم سفارش را وارد کنید',
+            'brand.required'=>'لطفا اسم برند را وارد کنید',
+    ]);
 
         DB::table('orders')->insert([
             "name" => $request->name,
@@ -139,7 +155,12 @@ Route::get('/users/index', function () {
 
 Route::post('/users/create', function (Request $request ) {
 
+    $validated = $request->validate([
+        'name' => 'required',
 
+    ],[
+            'name.required'=>'لطفا اسم خود را وارد کنید',
+    ]);
         DB::table('users')->insert([
             "name" => $request->name,
             "codemeli" => $request->codemeli,
@@ -149,6 +170,7 @@ Route::post('/users/create', function (Request $request ) {
             // "email" => $request->email,
             "password" => $request->password,
         ]);
+
         return "product added";
 });
 Route::post('/users/edit/{id}', function (Request $request,$id) {
@@ -171,3 +193,42 @@ Route::delete('/users/delete/{id}', function ($id) {
     return redirect('/users/index');
 });
 
+
+////
+Route::get('/posts/create', function () {
+    return view('posts.create');
+});
+Route::get('/posts/edit/{id}', function ($id) {
+    $post = DB::table('posts')->where('id', $id)->first();
+    return view('posts.edit', ['post' => $post]);
+});
+Route::get('/posts/index', function () {
+        $posts = DB::table('posts')->get();
+    return view('posts.index', ["posts" => $posts]);
+});
+
+
+Route::post('/posts/create', function (Request $request) {
+        DB::table('posts')->insert([
+            "name" => $request->name,
+            "brand" => $request->brand,
+            "cat" => $request->cat,
+        ]);
+        return "posts added";
+});
+Route::post('/posts/edit/{id}', function (Request $request,$id) {
+
+    DB::table('posts')->where('id', $id)->update([
+
+        "name" => $request->name,
+        "brand" => $request->brand,
+        "cat" => $request->cat,
+    ]);
+    return "posts updated";
+});
+Route::delete('/posts/delete/{id}', function ($id) {
+
+    DB::table('posts')->where('id', $id)->delete();
+
+    return redirect('/posts/index');
+});

@@ -51,6 +51,10 @@
             placeholder="نام و نام خانوادگی را وارد نمایید"
             name="name"
           />
+          @if ($errors->has('name'))
+          <li style="color: red">{{$errors->first('name')}}</li>
+
+  @endif
         </div>
 
         <div class="mb-3 mt-3">
@@ -103,6 +107,7 @@
         </div>
 
         <button type="submit" class="btn btn-light">ثبت</button>
+
       </form>
     </div>
 

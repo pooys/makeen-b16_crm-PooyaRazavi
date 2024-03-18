@@ -71,6 +71,7 @@
               <td {{$product->model}}></td>
               <td {{$product->price}}></td>
 
+
               <td>
                     <a href="/products/edit/{{$product->id}}">edit</a>
                     <form action="/products/delete/{{$product->id}}" method="post">

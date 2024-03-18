@@ -68,6 +68,7 @@
             <tr>
               <td>{{ $user->id}}</td>
               <td>{{ $user->name}}</td>
+              {{-- codemeli_id --}}
               <td>{{ $user->codemeli}}</td>
               <td>{{ $user->mobile}}</td>
               <td>{{ $user->tarikht_tavalod}}</td>
