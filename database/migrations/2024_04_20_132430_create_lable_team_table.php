@@ -4,8 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use function Laravel\Prompts\table;
-
 return new class extends Migration
 {
     /**
@@ -13,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('lable_team', function (Blueprint $table) {
+
             $table->id();
-            $table->string('name');
-            $table->integer('codemeli');
-            $table->integer('mobile');
-            $table->string('tarikht_tavalod');
-            $table->enum('sex', ['mard','zan']);
-            $table->integer('password');
+            $table->unique('team_id');
+            $table->unsignedBigInteger('team_id');
+            $table->unique('lable_id');
+            $table->unsignedBigInteger('lable_id');
             $table->timestamps();
+    
         });
     }
 
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('lable_team');
     }
 };

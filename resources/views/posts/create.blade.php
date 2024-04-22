@@ -53,7 +53,7 @@
           />
 
         </div>
-
+            <textarea name="brand" id="" cols="30" rows="10"></textarea>
         <div class="mb-3 mt-3">
           <label class="form-label">توضیحات </label>
           <input
