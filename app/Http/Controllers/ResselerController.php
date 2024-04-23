@@ -10,7 +10,9 @@ class ResselerController extends Controller
     {
         public function store(Request $request){
        $resselers = resseler::insert($request->toArray());
+       $request->user()->assignrole('reseller');
        return response()->json($resselers);
+
         }
 
 

@@ -18,7 +18,7 @@ class LableController extends Controller
                  $lables = lable::where('id', $id)->first();
          }
          else{
-             $lables = lable::with('order')->get();
+             $lables = lable::get();
          }
 
         return response()->json($lables);

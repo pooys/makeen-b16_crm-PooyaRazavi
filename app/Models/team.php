@@ -11,7 +11,10 @@ class team extends Model
     public function user(){
         return $this->hasMany(user::class);
     }
-    public function users(){
-        return $this->hasMany(user::class);
+    // public function users(){
+    //     return $this->hasMany(user::class);
+    // }
+    public function lable(){
+        return $this->morphToMany(lable::class, 'lablebles');
     }
 }

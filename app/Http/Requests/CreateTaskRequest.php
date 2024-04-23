@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateFactorRequest extends FormRequest
+class CreateTaskRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,7 @@ class CreateFactorRequest extends FormRequest
     public function rules(): array
     {
         return [
-
-            'number_factor'=>'required|unique:factor,number_factor'
-         ];
+            'user_id'=>'required|unique:tasks,user_id'
+        ];
     }
 }

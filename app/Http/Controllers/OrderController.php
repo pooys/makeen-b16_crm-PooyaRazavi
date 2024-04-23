@@ -8,53 +8,10 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
-    // public  function createGet() {
-    //     return view('orders.create');
-    // }
-    // public function editGet($id) {
-    //     $order = DB::table('orders')->where('id', $id)->first();
-    //     return view('orders.edit',['order' =>  $order]);
-    // }
-    // public function index() {
-    //     $orders = DB::table('orders')->get();
-    //     return view('orders.index', ["orders" =>  $orders]);
-    // }
-    // public function createPost(Request $request) {
 
-    //     $validated = $request->validate([
-    //         'name' => 'required',
-    //         'brand' => 'required',
-
-    //     ],[
-    //             'name.required'=>'لطفا اسم سفارش را وارد کنید',
-    //             'brand.required'=>'لطفا اسم برند را وارد کنید',
-    //     ]);
-
-    //         DB::table('orders')->insert([
-    //             "name" => $request->name,
-    //             "brand" => $request->brand,
-    //             "model" => $request->model,
-    //             "price" => $request->price,
-    //         ]);
-    //         return redirect(route('orders.index'));
-    // }
-    // public function editPost(Request $request , $id) {
-    //     DB::table('orders')->where('id', $id)->update([
-    //         "name" => $request->name,
-    //         "brand" => $request->brand,
-    //         "model" => $request->model,
-    //         "price" => $request->price,
-    //     ]);
-    //     return redirect(route('orders.index'));
-    // }
-    // public function delete($id) {
-
-    //     DB::table('orders')->where('id', $id)->delete();
-
-    //     return redirect('/orders/index');
-    // }
     public function store(Request $request){
         $orders = order::create($request->toArray());
+        $request->user()->assignrole('reseller');
         $orders->products()->attach($request->product_id);
         return response()->json($orders);
 

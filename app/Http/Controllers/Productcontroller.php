@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateProductRequest;
+use CreateProductsTable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -58,11 +60,11 @@ class Productcontroller extends Controller
 //     $products = DB::table('products')->get();
 //     return view('products.list',["products"=>$products]);
 // }
-public function store(Request $request){
-    $products = DB::table('products')->insert($request
-
-    ->toArray());
-    return response()->json($products,201);
+public function store(CreateProductRequest $request){
+    $product = DB::table('products')->insert($request->toArray());
+    $request->user()->assignrole('reseller');
+    $product->lables()->attach($request->lable_id);
+    return response()->json($product,201);
 
 }
 

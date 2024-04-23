@@ -9,6 +9,7 @@ class MessageController extends Controller
 {
     public function store(Request $request){
         $messages = message::insert($request->toArray());
+    
         return response()->json($messages);
          }
 

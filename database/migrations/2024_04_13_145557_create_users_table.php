@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('sex', ['mard','zan']);
             $table->string('password');
             $table->unique('team_id');
+            $table->unsignedBigInteger('team_id');
             $table->timestamps();
         });
     }

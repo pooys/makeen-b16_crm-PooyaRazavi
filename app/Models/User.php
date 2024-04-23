@@ -21,11 +21,13 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'team_id',
         'codemeli',
         'mobile',
         'tarikht_tavalod',
         'sex',
         'password',
+        'lable_id'
     ];
 
 
@@ -66,7 +68,11 @@ class User extends Authenticatable
     public function ticket(){
         return $this->belongsTo(task::class);
     }
-    public function lables(){
-        return $this->belongsToMany(lable::class);
+    // public function lables(){
+    //     return $this->belongsToMany(lable::class);
+    // }
+    public function lables()
+    {
+        return $this->morphToMany(lable::class, 'lablebles');
     }
 }

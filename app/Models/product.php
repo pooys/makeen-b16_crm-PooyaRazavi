@@ -23,6 +23,6 @@ class product extends Model
         return $this->hasMany(warranty::class);
     }
     public function lables(){
-        return $this->belongsToMany(lable::class);
+        return $this->morphToMany(lable::class, 'lablebles');
     }
 }

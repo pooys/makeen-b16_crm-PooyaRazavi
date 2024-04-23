@@ -14,7 +14,6 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        //roles:
         $admin = Role::create(['name' => 'admin']);
         $super_admin = Role::create(['name' => 'super_admin']);
         $user = role::create(['name' => 'user']);
@@ -25,6 +24,7 @@ class PermissionSeeder extends Seeder
         $edit_user = Permission::create(['name'=>'user.edit']);
         $index_user = Permission::create(['name'=>'user.index']);
         $delete_user =Permission::create(['name' => 'delete.user']);
+        $user_orders =Permission::create(['name'=>'user_orders']);
         //permission for products:
         $create_products = Permission::create(['name'=>'products.create']);
         $edit_products = Permission::create(['name'=>'products.edit']);
@@ -85,16 +85,61 @@ class PermissionSeeder extends Seeder
         $edit_tickets= Permission::create(['name'=>'tickets.edit']);
         $index_tickets = Permission::create(['name'=>'tickets.index']);
         $delete_tickets =Permission::create(['name' => 'tickets.user']);
-        //permission for warranties:
-        $create_warranties = Permission::create(['name'=>'warranties.create']);
-        $edit_warranties = Permission::create(['name'=>'warranties.edit']);
-        $index_warranties = Permission::create(['name'=>'warranties.index']);
-        $delete_warranties =Permission::create(['name' => 'warranties.user']);
+        //permission for warrantys:
+        $create_warrantys = Permission::create(['name'=>'warrantys.create']);
+        $edit_warrantys = Permission::create(['name'=>'warrantys.edit']);
+        $index_warrantys = Permission::create(['name'=>'warrantys.index']);
+        $delete_warrantys =Permission::create(['name' => 'warrantys.user']);
 
 
 
         //roles permission:
-        $admin->givePermissionTo([$create_user, $edit_user , $index_user , $delete_user]);
-        $super_admin->givePermissionTo([$create_user, $edit_user , $index_user , $delete_user, ]);
+        $admin->givePermissionTo([
+            $create_user,$edit_user,$index_user,$delete_user,
+            $create_categories,$edit_categories,$index_categories,$delete_categories,
+            $create_lables,$edit_lables,$index_lables,$delete_lables,
+            $create_notes,$edit_notes,$index_notes,$delete_notes,
+            $create_posts,$edit_posts,$index_posts,$delete_posts,
+            $create_teams,$edit_teams,$index_teams,$delete_teams,
+            $create_resellers,$edit_resellers,$index_resellers,$delete_resellers,
+            $create_orders,$edit_orders,$index_orders,$delete_orders,
+            
+        ]);
+
+        $super_admin->hasAllPermissions(Role::all());
+
+        $super_admin->givePermissionTo([
+            $create_user,$edit_user,$index_user,$delete_user,
+            $create_products,$edit_products,$index_products,$delete_products,
+            $create_orders,$edit_orders,$index_orders,$delete_orders,
+            $create_categories,$edit_categories,$index_categories,$delete_categories,
+            $create_factors,$edit_factors,$index_factors,$delete_factors,
+            $create_lables,$edit_lables,$index_lables,$delete_lables,
+            $create_messages,$edit_messages,$index_messages,$delete_messages,
+            $create_notes,$edit_notes,$index_notes,$delete_notes,
+            $create_posts,$edit_posts,$index_posts,$delete_posts,
+            $create_resellers,$edit_resellers,$index_resellers,$delete_resellers,
+            $create_tasks,$edit_tasks,$index_tasks,$delete_tasks,
+            $create_teams,$edit_teams,$index_teams,$delete_teams,
+            $create_tickets,$edit_tickets,$index_tickets,$delete_tickets,
+            $create_warrantys,$edit_warrantys,$index_warrantys,$delete_warrantys,
+    ]);
+
+    $user->givePermissionTo([
+        $create_user,$edit_user,$delete_user,$create_orders,$create_resellers
+    ]);
+
+    $reseller->givePermissionTo([
+        $create_products,$edit_products,$index_products,$delete_products,
+        $create_posts,$edit_posts,
+    ]);
+
+    $customer->givePermissionTo([
+        $create_orders,$edit_orders,
+    ]);
+
+
+
+
     }
 }
