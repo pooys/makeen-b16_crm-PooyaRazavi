@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\factor;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,8 +14,13 @@ return new class extends Migration
     {
         Schema::create('factors', function (Blueprint $table) {
             $table->id();
+
             $table->string('number_factor');
-            $table->integer('order_id');
+            // $table->index('order_id');
+            // $table->foreignIdFor(factor::class ,'order_id')->constrained()->cascadeOnDelete();
+            $table->unique('order_id');
+            $table->unsignedBigInteger('order_id');
+
             $table->timestamps();
         });
     }

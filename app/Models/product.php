@@ -12,7 +12,7 @@ class product extends Model
     protected $fillable = [
         'name_product',
         'brand',
-        ',model',
+        'model',
         'price',
     ];
     public function orders():BelongsToMany

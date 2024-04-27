@@ -22,7 +22,7 @@ class CreateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'codemeli'=>'required|unique:users,codemeli'
+           'mobile'=>'required|unique:users,mobile'
         ];
     }
 }

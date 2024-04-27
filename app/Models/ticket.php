@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ticket extends Model
 {
@@ -19,7 +20,8 @@ class ticket extends Model
     public function user(){
         return $this->hasmany(user::class);
     }
-    public function masseges(){
-        return $this->belongsTo(task::class);
+    public function masseges():BelongsTo
+    {
+        return $this->belongsTo(message::class);
     }
 }

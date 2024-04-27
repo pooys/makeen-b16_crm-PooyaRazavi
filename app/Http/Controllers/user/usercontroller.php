@@ -13,49 +13,6 @@ use Laravel\Sanctum\Sanctum;
 
 class usercontroller extends Controller
 {
-    // public function createGet() {
-    //     return view('users.create');
-    // }
-    // public function editGet($id) {
-    //     $user = DB::table('users')->where('id', $id)->first();
-    //     return view('users.edit', ['user' => $user]);
-    // }
-
-    // public function createPost(CreateUserRequest $request ) {
-
-    //     $validated = $request->validate([
-    //         'name' => 'required',
-
-    //     ],[
-    //             'name.required'=>'لطفا اسم خود را وارد کنید',
-    //     ]);
-
-    //     $user = DB::table('users')->insert([
-    //         $request->except('_token')
-    //         ]);
-
-    //         return response()->json($user);
-    // }
-
-    // public function editPost(Request $request,$id) {
-
-    //     DB::table('users')->where('id', $id)->update([
-    //         "name" => $request->name,
-    //         "codemeli" => $request->codemeli,
-    //         "mobile" => $request->mobile,
-    //         "tarikht_tavalod" => $request->tarikht_tavalod,
-    //         "sex" => $request->sex,
-    //         // "email" => $request->email,
-    //         "password" => $request->password,
-    //     ]);
-    //     return redirect(route('users.index'));
-    // }
-    // public function delete($id) {
-
-    //     DB::table('users')->where('id', $id)->delete();
-
-    //     return redirect('/users/index');
-    // }\
     public function login(Request $request)
     {
         $user = User::select('id','mobile', 'password')
@@ -70,20 +27,37 @@ class usercontroller extends Controller
         $token = $user->createToken($request->mobile)->plainTextToken;
         return response()->json($token);
     }
-    public function logout(Request $request){
+    public function logout(CreateUserRequest $request){
         $request->user()->currentAccessToken()->delete();
         return response()->json('user loggen out');
     }
+        public function admin(CreateUserRequest $request){
+                    $user = user::create($request->merge([
+                        'password'=> Hash::make($request->password)
+                    ])->toArray());
+                    $user->lables()->attach($request->lable_id);
+                    $user->assignRole('admin');
+                    return response()->json($user);
 
 
+        }
+        public function super_admin(CreateUserRequest $request){
+            $user = user::create($request->merge([
+                    'password'=> Hash::make($request->password)
+                ])->toArray());
+                $user->lables()->attach($request->lable_id);
+                $user->assignRole('super_admin');
+                return response()->json($user);
+        }
 
-    public function store(Request $request)
+
+    public function store(CreateUserRequest $request)
     {
             $user = User::create($request->merge([
                 "password" => Hash::make($request->password)])->toArray());
-                $user->assignRole('user');
-
-            return response()->json($user);
+                 $user->givePermissionTo('super_admin');
+                 $user->lables()->attach($request->lable_id);
+                    return response()->json($user);
 
         }
 
@@ -106,7 +80,7 @@ class usercontroller extends Controller
         return response()->json($users);
     }
     public function delete($id){
-        $users = User::where('id', $id)->delete();
+        $users = User::destroy($id);
         return response()->json($users);
     }
 }

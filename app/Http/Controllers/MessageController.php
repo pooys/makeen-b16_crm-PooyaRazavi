@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class MessageController extends Controller
 {
     public function store(Request $request){
-        $messages = message::insert($request->toArray());
-    
+        $messages = message::create($request->toArray());
+
         return response()->json($messages);
          }
 
@@ -19,7 +19,7 @@ class MessageController extends Controller
                  $messages = message::where('id', $id)->first();
          }
          else{
-             $messages = message::with('order')->get();
+             $messages = message::get();
          }
 
         return response()->json($messages);

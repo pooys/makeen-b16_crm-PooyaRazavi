@@ -15,16 +15,16 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         $admin = Role::create(['name' => 'admin']);
-        $super_admin = Role::create(['name' => 'super_admin']);
+        $super_admin = Permission::create(['name' => 'super_admin']);
         $user = role::create(['name' => 'user']);
         $reseller = Role::create(['name' => 'reseller']);
         $customer = Role::create(['name' => 'customer']);
         //permission for users:
-        $create_user = Permission::create(['name'=>'user.create']);
-        $edit_user = Permission::create(['name'=>'user.edit']);
-        $index_user = Permission::create(['name'=>'user.index']);
-        $delete_user =Permission::create(['name' => 'delete.user']);
-        $user_orders =Permission::create(['name'=>'user_orders']);
+        $create_user = Permission::create(['name'=>'user.create','guard_name'=>'web']);
+        $edit_user = Permission::create(['name'=>'user.edit','guard_name'=>'web']);
+        $index_user = Permission::create(['name'=>'user.index','guard_name'=>'web']);
+        $delete_user =Permission::create(['name' => 'delete.user','guard_name'=>'web']);
+
         //permission for products:
         $create_products = Permission::create(['name'=>'products.create']);
         $edit_products = Permission::create(['name'=>'products.edit']);
@@ -103,7 +103,7 @@ class PermissionSeeder extends Seeder
             $create_teams,$edit_teams,$index_teams,$delete_teams,
             $create_resellers,$edit_resellers,$index_resellers,$delete_resellers,
             $create_orders,$edit_orders,$index_orders,$delete_orders,
-            
+
         ]);
 
         $super_admin->hasAllPermissions(Role::all());
@@ -126,7 +126,7 @@ class PermissionSeeder extends Seeder
     ]);
 
     $user->givePermissionTo([
-        $create_user,$edit_user,$delete_user,$create_orders,$create_resellers
+        $create_user,$edit_user,$delete_user,$create_orders,$create_resellers,$index_user,
     ]);
 
     $reseller->givePermissionTo([

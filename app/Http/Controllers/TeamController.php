@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class TeamController extends Controller
 {
     public function store(Request $request){
-   $teams = team::insert($request->toArray());
+   $teams = team::create($request->toArray());
+  $teams->lable()->attach($request->lable_id);
    return response()->json($teams);
     }
 

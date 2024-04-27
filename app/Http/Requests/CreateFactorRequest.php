@@ -11,7 +11,7 @@ class CreateFactorRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,7 @@ class CreateFactorRequest extends FormRequest
     {
         return [
 
-            'number_factor'=>'required|unique:factor,number_factor'
+            'number_factor'=>'unique:factor,number_factor'
          ];
     }
 }

@@ -9,18 +9,18 @@ class lable extends Model
 
 {
     protected $fillable=[
-        'title'
+        'title',
+        'description'
     ];
     use HasFactory;
     public function users(){
-        return $this->morphToMany(User::class,'lablebles');
+        return $this->morphedByMany(User::class,'lablebles');
     }
 
     public function teams(){
-        return $this->morphToMany(team::class, 'lablebles');
+        return $this->morphedByMany(team::class, 'lablebles');
     }
-
     public function products(){
-        return $this->belongsToMany(Product::class);
+        return $this->morphedByMany(product::class , 'lablables');
     }
 }

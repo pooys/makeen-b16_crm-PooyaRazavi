@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class message extends Model
 {
@@ -12,7 +13,9 @@ class message extends Model
         'ticket_id',
         'masseges'
     ];
-    public function ticket(){
-        return $this->hasMany(task::class);
+    public function ticket():HasMany
+    {
+
+        return $this->hasMany(ticket::class);
     }
 }

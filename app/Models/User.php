@@ -12,7 +12,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable,HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -27,7 +27,6 @@ class User extends Authenticatable
         'tarikht_tavalod',
         'sex',
         'password',
-        'lable_id'
     ];
 
 
@@ -50,22 +49,28 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    public function orders(){
+    public function orders()
+    {
         return $this->hasMany(order::class);
     }
-    public function team(){
+    public function team()
+    {
         return $this->belongsTo(team::class);
     }
-    public function resseler(){
+    public function resseler()
+    {
         return $this->hasOne(resseler::class);
     }
-    public function task(){
-        return $this->belongsTo(task::class);
+    public function task()
+    {
+        return $this->hasMany(task::class);
     }
-    public function note(){
+    public function note()
+    {
         return $this->belongsTo(note::class);
     }
-    public function ticket(){
+    public function ticket()
+    {
         return $this->belongsTo(task::class);
     }
     // public function lables(){
