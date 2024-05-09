@@ -18,9 +18,8 @@ return new class extends Migration
             $table->string('number_factor');
             // $table->index('order_id');
             // $table->foreignIdFor(factor::class ,'order_id')->constrained()->cascadeOnDelete();
-            $table->unique('order_id');
+            $table->index('order_id');
             $table->unsignedBigInteger('order_id');
-
             $table->timestamps();
         });
     }

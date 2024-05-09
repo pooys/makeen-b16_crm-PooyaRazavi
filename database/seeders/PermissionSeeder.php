@@ -15,7 +15,7 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         $admin = Role::create(['name' => 'admin']);
-        $super_admin = Permission::create(['name' => 'super_admin']);
+        $super_admin = role::create(['name' => 'super_admin']);
         $user = role::create(['name' => 'user']);
         $reseller = Role::create(['name' => 'reseller']);
         $customer = Role::create(['name' => 'customer']);
@@ -106,7 +106,7 @@ class PermissionSeeder extends Seeder
 
         ]);
 
-        $super_admin->hasAllPermissions(Role::all());
+
 
         $super_admin->givePermissionTo([
             $create_user,$edit_user,$index_user,$delete_user,
@@ -123,7 +123,7 @@ class PermissionSeeder extends Seeder
             $create_teams,$edit_teams,$index_teams,$delete_teams,
             $create_tickets,$edit_tickets,$index_tickets,$delete_tickets,
             $create_warrantys,$edit_warrantys,$index_warrantys,$delete_warrantys,
-    ]);
+        ]);
 
     $user->givePermissionTo([
         $create_user,$edit_user,$delete_user,$create_orders,$create_resellers,$index_user,

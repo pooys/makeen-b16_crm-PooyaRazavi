@@ -71,11 +71,18 @@ public function store(request $request){
 
 public function index($id = null) {
 if($id){
-        $products = DB::table('products')->where('id', $id)->first();
+        $products = product::where('id', $id)->first();
 }
 else{
-    $products = DB::table('products')->get();
+    $products = product::get();
 }
+
+ // bala tarin forosh mahsol
+ $products = new product;
+ $products = $products->withcount('orders');
+ $products = $products->orderby('orders_count','desc');
+ $products = $products->skip(0)->take(10);
+ $products = $products->get();
 
 return response()->json($products);
 
@@ -83,11 +90,11 @@ return response()->json($products);
 
 
 public function edit(Request $request, $id){
-    $product = DB::table('products')->where('id', $id)->update($request->toArray());
+    $product = product::where('id', $id)->update($request->toArray());
     return response()->json(($product));
 }
 public function delete($id){
-$product = DB::table('products')->where('id', $id)->delete();
+$product = product::where('id', $id)->delete();
 return response()->json($product);
 }
 }

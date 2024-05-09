@@ -10,7 +10,7 @@ class team extends Model
     use HasFactory;
 
     public function user(){
-        return $this->hasMany(user::class);
+        return $this->belongsToMany(user::class);
     }
     // public function users(){
     //     return $this->hasMany(user::class);

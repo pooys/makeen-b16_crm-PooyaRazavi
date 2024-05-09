@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\order;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -25,6 +26,8 @@ public function index($id = null) {
     else{
         $orders= order::with('user')->get();
     }
+
+
 
    return response()->json($orders);
 

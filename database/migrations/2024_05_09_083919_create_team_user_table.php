@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('codemeli');
-            $table->string('mobile');
-            $table->string('tarikht_tavalod');
-            $table->enum('sex', ['mard','zan']);
-            $table->string('password');
+        Schema::create('team_user', function (Blueprint $table) {
+            $table->unsignedBigInteger('team_id');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('team_user');
     }
 };

@@ -3,12 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class User extends Authenticatable
 {
@@ -21,7 +24,6 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'team_id',
         'codemeli',
         'mobile',
         'tarikht_tavalod',
@@ -55,7 +57,7 @@ class User extends Authenticatable
     }
     public function team()
     {
-        return $this->belongsTo(team::class);
+        return $this->belongsToMany(team::class);
     }
     public function resseler()
     {
@@ -79,5 +81,15 @@ class User extends Authenticatable
     public function lables()
     {
         return $this->morphToMany(lable::class, 'lablebles');
+    }
+    protected $appends=['full_name'];
+
+    // public function getFullNameAttribute(){
+    //     return $this->name.' '.$this->mobile;
+    // }
+    protected function fullName():Attribute
+    {
+    return new Attribute(
+        get :fn()=> $this->name.''.$this->name);
     }
 }
