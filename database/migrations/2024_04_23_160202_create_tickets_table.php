@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('subject');
             $table->string('message');
             $table->string('supporter');
-         
+         $table->unsignedBigInteger('message_id');
             $table->dateTime('started_at');
             $table->dateTime('ended_at');
             $table->timestamps();

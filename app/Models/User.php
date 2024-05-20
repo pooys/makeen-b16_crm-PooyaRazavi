@@ -92,4 +92,8 @@ class User extends Authenticatable
     return new Attribute(
         get :fn()=> $this->name.''.$this->name);
     }
+    public function media()
+    {
+        return $this->morphToMany(media::class,'mediables');
+    }
 }

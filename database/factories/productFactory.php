@@ -24,6 +24,7 @@ class productFactory extends Factory
                         'brand' => fake()->lastName(),
                         'model'=>fake()->word(2,true),
                         'price'=>fake()->randomNumber(1,5),
+                        'image_path'=>fake()->image(),
 
 
                     ];

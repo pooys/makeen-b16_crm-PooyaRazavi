@@ -59,6 +59,7 @@ class usercontroller extends Controller
     {
             $user = User::create($request->merge([
                 "password" => Hash::make($request->password)])->toArray());
+
                 //  $user->givePermissionTo('super_admin');
                     $user->lables()->attach($request->lable_id);
                     $user->assignRole('user');

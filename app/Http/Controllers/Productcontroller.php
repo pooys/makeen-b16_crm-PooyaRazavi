@@ -63,6 +63,11 @@ class Productcontroller extends Controller
 // }
 public function store(request $request){
     $product = product::create($request->toArray());
+    $path = $request->file('1')->store('public');
+    $products=product::create($request->merge([
+        'image_path' => $path
+    ])->toArray());
+
     $product->lables()->attach($request->lable_id);
     return response()->json($product,201);
 

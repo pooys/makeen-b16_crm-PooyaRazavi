@@ -124,6 +124,12 @@ Route::group(['prefix'=>'lables','as'=>'lables.','middleware'=>'auth:sanctum'],f
     route::put('edit/{id}',[LableController::class, 'edit'])->middleware('permission:lables.edit')->name('edit');
     route::delete('delete/{id}',[LableController::class, 'delete'])->middleware('permission:lables.delete')->name('delete');
 });
+Route::group(['prefix'=>'medias','as'=>'medias.','middleware'=>'auth:sanctum'],function(){
+    route::get('index/{id?}',[\App\Http\Controllers\MediaController::class, 'index'])->middleware('permission:medias.index')->name('index');
+    route::post('create/{id}',[\App\Http\Controllers\MediaController::class, 'create'])->middleware('permission:medias.create')->name('create');
+    route::put('edit/{id}',[\App\Http\Controllers\MediaController::class, 'edit'])->middleware('permission:medias.edit')->name('edit');
+    route::delete('delete/{id}',[\App\Http\Controllers\MediaController::class, 'delete'])->middleware('permission:medias.delete')->name('delete');
+});
 
 
 

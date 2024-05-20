@@ -20,8 +20,9 @@ class ticket extends Model
     public function user(){
         return $this->hasmany(user::class);
     }
-    public function masseges():BelongsTo
+    public function massege():BelongsTo
     {
         return $this->belongsTo(message::class);
     }
+
 }

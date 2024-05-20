@@ -90,11 +90,17 @@ class PermissionSeeder extends Seeder
         $edit_warrantys = Permission::create(['name'=>'warrantys.edit']);
         $index_warrantys = Permission::create(['name'=>'warrantys.index']);
         $delete_warrantys =Permission::create(['name' => 'warrantys.user']);
+        //permission for media
+        $create_medias = Permission::create(['name'=>'medias.create']);
+        $edit_medias = Permission::create(['name'=>' medias.edit']);
+        $index_medias = Permission::create(['name'=>'medias.index']);
+        $delete_medias =Permission::create(['name' => 'medias.user']);
 
 
 
         //roles permission:
         $admin->givePermissionTo([
+            $create_medias,$edit_medias,$index_medias,$delete_medias,
             $create_user,$edit_user,$index_user,$delete_user,
             $create_categories,$edit_categories,$index_categories,$delete_categories,
             $create_lables,$edit_lables,$index_lables,$delete_lables,
@@ -109,6 +115,7 @@ class PermissionSeeder extends Seeder
 
 
         $super_admin->givePermissionTo([
+
             $create_user,$edit_user,$index_user,$delete_user,
             $create_products,$edit_products,$index_products,$delete_products,
             $create_orders,$edit_orders,$index_orders,$delete_orders,
@@ -123,6 +130,7 @@ class PermissionSeeder extends Seeder
             $create_teams,$edit_teams,$index_teams,$delete_teams,
             $create_tickets,$edit_tickets,$index_tickets,$delete_tickets,
             $create_warrantys,$edit_warrantys,$index_warrantys,$delete_warrantys,
+            $create_medias,$edit_medias,$index_medias,$delete_medias,
         ]);
 
     $user->givePermissionTo([

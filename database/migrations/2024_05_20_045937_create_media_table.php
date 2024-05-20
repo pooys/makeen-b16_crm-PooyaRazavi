@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\message;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('media', function (Blueprint $table) {
             $table->id();
-
-            $table->unsignedBigInteger('ticket_id');
-            $table->string('masseges');
+            $table->string('media_name');
+            $table->string('size');
+            $table->string('path');
+            $table->string('type');
+            $table->string('ext');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('messages');
+        Schema::dropIfExists('media');
     }
 };
