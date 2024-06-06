@@ -10,12 +10,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-
-class User extends Authenticatable
+ class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles,InteractsWithMedia ;
 
     /**
      * The attributes that are mass assignable.
@@ -29,6 +30,7 @@ class User extends Authenticatable
         'tarikht_tavalod',
         'sex',
         'password',
+        'email',
     ];
 
 
@@ -73,7 +75,7 @@ class User extends Authenticatable
     }
     public function ticket()
     {
-        return $this->belongsTo(task::class);
+        return $this->hasMany(task::class);
     }
     // public function lables(){
     //     return $this->belongsToMany(lable::class);
@@ -92,8 +94,8 @@ class User extends Authenticatable
     return new Attribute(
         get :fn()=> $this->name.''.$this->name);
     }
-    public function media()
+    public function file()
     {
-        return $this->morphToMany(media::class,'mediables');
-    }
+       return $this->morphToMany(file::class,'mediables');
+   }
 }

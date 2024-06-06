@@ -4,6 +4,8 @@ namespace App\Http\Controllers\user;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
+use App\Jobs\RegisterJob;
+use App\Mail\Register;
 use App\Models\order;
 use App\Models\User;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -11,7 +13,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Laravel\Sanctum\Sanctum;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 
 class usercontroller extends Controller
@@ -19,87 +23,115 @@ class usercontroller extends Controller
 {
     public function login(Request $request)
     {
-        $user = User::select('id','mobile', 'password')
-        ->where('mobile', $request->mobile)
-        ->first();
-        if(!$user) {
+        $user = User::select('id', 'mobile', 'password')
+            ->where('mobile', $request->mobile)
+            ->first();
+        if (!$user) {
             return response()->json('user not found');
         }
-        if(!Hash::check($request->password, $user->password)){
-                return response()->json('pass error');
+        if (!Hash::check($request->password, $user->password)) {
+            return response()->json('pass error');
         }
         $token = $user->createToken($request->mobile)->plainTextToken;
         return response()->json($token);
     }
-    public function logout(CreateUserRequest $request){
+
+    public function logout(CreateUserRequest $request)
+    {
         $request->user()->currentAccessToken()->delete();
         return response()->json('user loggen out');
     }
-        public function admin(CreateUserRequest $request){
-                    $user = user::create($request->merge([
-                        'password'=> Hash::make($request->password)
-                    ])->toArray());
-                    $user->lables()->attach($request->lable_id);
-                    $user->assignRole('admin');
-                    return response()->json($user);
+
+    public function admin(CreateUserRequest $request)
+    {
+        $user = user::create($request->merge([
+            'password' => Hash::make($request->password)
+        ])->toArray());
+        $user->lables()->attach($request->lable_id);
+        $user->assignRole('admin');
+        return response()->json($user);
 
 
-        }
-        public function super_admin(CreateUserRequest $request){
-            $user = user::create($request->merge([
-                    'password'=> Hash::make($request->password)
-                ])->toArray());
-                $user->lables()->attach($request->lable_id);
-                $user->assignRole('super_admin');
-                return response()->json($user);
-        }
+    }
+
+    public function super_admin(CreateUserRequest $request)
+    {
+        $user = user::create($request->merge([
+            'password' => Hash::make($request->password)
+        ])->toArray());
+
+        $user->lables()->attach($request->lable_id);
+        $user->assignRole('super_admin');
+        Mail::to($user->email)->send(
+            (new Register($user)));
+        return response()->json($user);
+    }
 
 
     public function store(CreateUserRequest $request)
     {
-            $user = User::create($request->merge([
-                "password" => Hash::make($request->password)])->toArray());
+        $user = User::create($request->merge([
+            "password" => Hash::make($request->password)])->toArray());
 
-                //  $user->givePermissionTo('super_admin');
-                    $user->lables()->attach($request->lable_id);
-                    $user->assignRole('user');
-                    return response()->json($user);
+        //  $user->givePermissionTo('super_admin');
+        $user->lables()->attach($request->lable_id);
+        $user->assignRole('user');
+        return response()->json($user);
 
+    }
+
+    public function index(Request $request)
+    {
+        $user = User::get();
+        if ($request->hasOrder) {
+            $user = user::has('order')->get();
+        }
+        if ($request->price) {
+            $price = $request->price;
+            $user = user::whereHas('orders', function (builder $query) use ($price) {
+                $query->where('first', 'like', '%' . $price . '%');
+            });
+            $user = $user->get();
+        }
+        if ($request->ordersCount) {
+            $user = User::get()->loadCount('orders');
+        }
+        if ($request->ordersSum) {
+            $user = User::get()->loadSum('orders', 'price');
         }
 
-            public function index(Request $request){
-                $user = User::get();
-                if($request->hasOrder) {
-                    $user = user::has('order')->get();
-                }
-                if($request->price){
-                    $price = $request->price;
-                    $user = user::whereHas('orders' , function (builder $query)use($price){
-                        $query->where('first' , 'like' , '%'.$price.'%');
-                    });
-                           $user = $user->get();
-                }
-            if($request->ordersCount){
-                $user = User::get()->loadCount('orders');
-            }
-           if($request->ordersSum){
-               $user = User::get()->loadSum('orders','price');
-           }
-
-            return response()->json($user);
-            }
+        return response()->json($user);
+    }
 
 
-
-
-    public function edit(Request $request, $id){
+    public function edit(Request $request, $id)
+    {
         $users = User::where('id', $id)->update($request->toArray());
         return response()->json($users);
     }
-    public function delete($id){
+
+    public function delete($id)
+    {
         $users = User::destroy($id);
         return response()->json($users);
     }
+
+
+    public function profile(Request $request, $id)
+    {
+        $user = new User();
+        $user->find($id)->addMedia($request->image)->usingName('avatar')->toMediaCollection('avatar');
+        return response()->json('uplod shod');
+    }
+
+    public function delete_profile($id)
+    {
+        $media = new Media();
+        $media->destroy('avatar', $id);
+        return response()->json('delete profile anjam shod');
+    }
+
+
 
 
 
@@ -129,6 +161,7 @@ class usercontroller extends Controller
         $users=$users->get();
 
     }
-}
 
-}
+}}
+
+

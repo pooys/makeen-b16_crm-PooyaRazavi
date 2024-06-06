@@ -45,9 +45,11 @@ Route::group(['prefix'=>'users','as'=>'users.','middleware'=>'auth:sanctum'], fu
     route::post('store',[usercontroller::class, 'store'])->middleware('permission:user.create')->name('store');
     route::put('edit/{id}',[usercontroller::class, 'edit'])->name('edit')->middleware('permission:user.edit');
     route::get('userOrders',[usercontroller::class, 'edit'])->name('userOrders');
+    route::post('profile/{id}',[usercontroller::class, 'profile'])->name('profile')->middleware('permission:create.profile');
     route::post('/super_admin',[UserController::class , 'super_admin'])->name('super_admin')->withoutMiddleware('auth:sanctum');
     route::post('/admin',[UserController::class , 'admin'])->name('admin')->withoutMiddleware('auth:sanctum');
     route::delete('delete/{id}',[usercontroller::class, 'delete'])->name('delete')->middleware('permisison:delete.user');
+
 });
 
 Route::group(['prefix'=>'products','as'=>'products.','middleware'=>'auth:sanctum'],function(){
@@ -118,19 +120,30 @@ Route::group(['prefix'=>'warranties','as'=>'warranties.','middleware'=>'auth:san
     route::put('edit/{id}',[WarrantyController::class, 'edit'])->middleware('permission:warrantys.edit')->name('edit');
     route::delete('delete/{id}',[WarrantyController::class, 'delete'])->middleware('permission:warrantys.delete')->name('delete');
 });
+Route::group(['prefix'=>'resellers','as'=>'resselers.','middleware'=>'auth:sanctum'],function(){
+    route::get('index/{id?}',[ResselerController::class, 'index'])->middleware('permission:resellers.index')->name('index');
+    route::post('store',[ResselerController::class, 'store'])->middleware('permission:resellers.create')->name('store');
+    route::put('edit/{id}',[ResselerController::class, 'edit'])->middleware('permission:resellers.edit')->name('edit');
+    route::delete('delete/{id}',[ResselerController::class, 'delete'])->middleware('permission:resellers.delete')->name('delete');
+});
 Route::group(['prefix'=>'lables','as'=>'lables.','middleware'=>'auth:sanctum'],function(){
     route::get('index/{id?}',[LableController::class, 'index'])->middleware('permission:lables.index')->name('index');
     route::post('store',[LableController::class, 'store'])->middleware('permission:lables.create')->name('store');
     route::put('edit/{id}',[LableController::class, 'edit'])->middleware('permission:lables.edit')->name('edit');
     route::delete('delete/{id}',[LableController::class, 'delete'])->middleware('permission:lables.delete')->name('delete');
 });
-Route::group(['prefix'=>'medias','as'=>'medias.','middleware'=>'auth:sanctum'],function(){
-    route::get('index/{id?}',[\App\Http\Controllers\MediaController::class, 'index'])->middleware('permission:medias.index')->name('index');
-    route::post('create/{id}',[\App\Http\Controllers\MediaController::class, 'create'])->middleware('permission:medias.create')->name('create');
-    route::put('edit/{id}',[\App\Http\Controllers\MediaController::class, 'edit'])->middleware('permission:medias.edit')->name('edit');
-    route::delete('delete/{id}',[\App\Http\Controllers\MediaController::class, 'delete'])->middleware('permission:medias.delete')->name('delete');
+Route::group(['prefix'=>'files','as'=>'files.','middleware'=>'auth:sanctum'],function(){
+    route::get('index/{id?}',[\App\Http\Controllers\FileController::class, 'index'])->middleware('permission:medias.index')->name('index');
+    route::post('create/{id}',[\App\Http\Controllers\FileController::class, 'create'])->name('create');
+    route::get('download',[\App\Http\Controllers\FileController::class, 'download'])->name('download');
+    route::post('profile/{id}',[\App\Http\Controllers\FileController::class, 'profile'])->name('profile');
+    route::put('edit/{id}',[\App\Http\Controllers\FileController::class, 'edit'])->middleware('permission:medias.edit')->name('edit');
+    route::delete('delete/{id}',[\App\Http\Controllers\FileController::class, 'delete'])->name('delete');
 });
 
+Route::get('test',function(){
+    \App\Jobs\newProduct::class::dispatch();
+});
 
 
 

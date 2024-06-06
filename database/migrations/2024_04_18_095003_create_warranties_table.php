@@ -20,8 +20,9 @@ return new class extends Migration
             $table->string('description');
             $table->date('started_at');
             $table->date('ended_at');
-            $table->index('product_id');
-            $table->foreignIdFor(warranty::class,'product_id')->constrained()->cascadeOnDelete();
+//            $table->index('product_id');
+            $table->unsignedBigInteger('product_id');
+//            $table->foreignIdFor(warranty::class,'product_id')->constrained()->cascadeOnDelete();?
             $table->timestamps();
         });
     }

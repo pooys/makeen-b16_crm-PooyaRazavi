@@ -14,6 +14,7 @@ class product extends Model
         'brand',
         'model',
         'price',
+        'image_path'
     ];
     public function orders():BelongsToMany
     {

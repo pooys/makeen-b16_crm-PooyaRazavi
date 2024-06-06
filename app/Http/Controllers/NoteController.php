@@ -18,7 +18,7 @@ class NoteController extends Controller
                  $notes = note::where('id', $id)->first();
          }
          else{
-             $notes = note::with('user')->get();
+             $notes = note::get();
          }
 
         return response()->json($notes);

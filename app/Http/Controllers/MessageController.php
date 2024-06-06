@@ -2,14 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateMessageRequest;
 use App\Models\message;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
-    public function store(Request $request){
-        $messages = message::create($request->toArray());
-
+    public function store(CreateMessageRequest $request){
+        $messages =message:: create($request->toArray());
+        if($request->media){
+            $media = $request->file('image');
+            $path = $media->store('local');
+            $messages->medias()->create([
+                'file_name'=>$media->getClientOriginalName(),
+                'path'=>$path,
+                'size'=>$media->getSize(),
+                'ext'=>$media->getClientOriginalExtension(),
+                'type'=>'avatar'
+            ]);
+        }
         return response()->json($messages);
          }
 
@@ -26,7 +37,7 @@ class MessageController extends Controller
 
       }
 
-     public function edit(Request $request, $id){
+     public function edit(CreateMessageRequest $request, $id){
          $messages = message::where('id', $id)->update($request->toArray());
          return response()->json($messages);
      }

@@ -24,6 +24,8 @@ class PermissionSeeder extends Seeder
         $edit_user = Permission::create(['name'=>'user.edit','guard_name'=>'web']);
         $index_user = Permission::create(['name'=>'user.index','guard_name'=>'web']);
         $delete_user =Permission::create(['name' => 'delete.user','guard_name'=>'web']);
+        $create_profile =Permission::create(['name' => 'create.profile','guard_name'=>'web']);
+
 
         //permission for products:
         $create_products = Permission::create(['name'=>'products.create']);
@@ -100,6 +102,7 @@ class PermissionSeeder extends Seeder
 
         //roles permission:
         $admin->givePermissionTo([
+            $create_profile,
             $create_medias,$edit_medias,$index_medias,$delete_medias,
             $create_user,$edit_user,$index_user,$delete_user,
             $create_categories,$edit_categories,$index_categories,$delete_categories,
@@ -115,7 +118,7 @@ class PermissionSeeder extends Seeder
 
 
         $super_admin->givePermissionTo([
-
+            $create_profile,
             $create_user,$edit_user,$index_user,$delete_user,
             $create_products,$edit_products,$index_products,$delete_products,
             $create_orders,$edit_orders,$index_orders,$delete_orders,

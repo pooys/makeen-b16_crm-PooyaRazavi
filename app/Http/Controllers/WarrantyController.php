@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class WarrantyController extends Controller
 {
     public function store(Request $request){
-        $warrantys = warranty::insert($request->toArray());
+        $warrantys = warranty::create($request->toArray());
         return response()->json($warrantys);
          }
 
@@ -18,7 +18,7 @@ class WarrantyController extends Controller
                  $warrantys = warranty::where('id', $id)->first();
          }
          else{
-             $warrantys = warranty::with('order')->get();
+             $warrantys = warranty::get();
          }
 
         return response()->json($warrantys);

@@ -17,6 +17,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('ticket_id');
             $table->string('masseges');
+            $table->enum('status', ['read','new']);
             $table->timestamps();
         });
     }

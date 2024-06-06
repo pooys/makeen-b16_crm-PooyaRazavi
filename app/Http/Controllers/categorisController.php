@@ -15,3 +15,17 @@ class categorisController extends Controller
         return redirect('categoris/create');
         }
 }
+class User
+{
+    public $name = 'mohammad';
+    public $age = 24;
+    public $lastName= 'mosavi';
+    public function getinfo()
+    {
+    return "$this->name and $this->lastName And $this->age";
+
+}
+}
+$user1 = New User;
+$user1->name = "poya";
+var_dump($user1->getinfo() );

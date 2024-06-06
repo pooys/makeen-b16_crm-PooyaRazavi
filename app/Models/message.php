@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+
 class message extends Model
 {
     use HasFactory;
@@ -17,5 +18,9 @@ class message extends Model
     {
 
         return $this->hasMany(ticket::class);
+    }
+    public function file()
+    {
+        return $this->morphToMany(file::class,'mediables');
     }
 }

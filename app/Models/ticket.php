@@ -18,7 +18,7 @@ class ticket extends Model
         'ended_at'
     ];
     public function user(){
-        return $this->hasmany(user::class);
+        return $this->belongsTo(user::class);
     }
     public function massege():BelongsTo
     {

@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mediables', function (Blueprint $table) {
+        Schema::create('files', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('media_id');
-            $table->morphs('mediables');
+            $table->string('media_name');
+            $table->string('size');
+            $table->string('path');
+            $table->string('type');
+            $table->string('ext');
             $table->timestamps();
         });
     }
@@ -24,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mediables');
+        Schema::dropIfExists('files');
     }
 };
