@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\warranty;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,14 +14,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('warranties', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('codemeli');
-            $table->integer('mobile');
-            $table->string('tarikht_tavalod');
-            $table->enum('sex', ['mard','zan']);
-            $table->integer('password');
+            $table->string('description');
+            $table->date('started_at');
+            $table->date('ended_at');
+//            $table->index('product_id');
+            $table->unsignedBigInteger('product_id');
+//            $table->foreignIdFor(warranty::class,'product_id')->constrained()->cascadeOnDelete();?
             $table->timestamps();
         });
     }
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('warranties');
     }
 };

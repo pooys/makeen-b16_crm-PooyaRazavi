@@ -51,6 +51,7 @@
     <table class="table table-bordered">
       <thead>
         <tr>
+            {{-- <th>ID</th> --}}
           <th>نام و نام خانوادگی</th>
           <th>کد ملی</th>
           <th>شماره همراه</th>
@@ -64,10 +65,11 @@
 
         @foreach ($users as $user )
 
-        @endforeach
+
             <tr>
               <td>{{ $user->id}}</td>
               <td>{{ $user->name}}</td>
+              {{-- codemeli_id --}}
               <td>{{ $user->codemeli}}</td>
               <td>{{ $user->mobile}}</td>
               <td>{{ $user->tarikht_tavalod}}</td>
@@ -92,6 +94,7 @@
         </td>
         </tr>
       </tbody>
+      @endforeach
     </table>
   </div>
     </body>

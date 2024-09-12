@@ -51,12 +51,16 @@
             placeholder="نام و نام خانوادگی را وارد نمایید"
             name="name"
           />
+          {{-- @if ($errors->has('name'))
+          <li style="color: red">{{$errors->first('name')}}</li>
+
+  @endif --}}
         </div>
 
         <div class="mb-3 mt-3">
           <label class="form-label">کد ملی</label>
           <input
-            type="text"
+            type="number"
             class="form-control"
             placeholder="کد ملی را وارد نمایید"
             name="codemeli"
@@ -66,7 +70,7 @@
         <div class="mb-3 mt-3">
           <label class="form-label">شماره همراه:</label>
           <input
-            type="text"
+            type="number"
             class="form-control"
             placeholder="شماره همراه را وارد نمایید"
             name="mobile"
@@ -103,6 +107,7 @@
         </div>
 
         <button type="submit" class="btn btn-light">ثبت</button>
+
       </form>
     </div>
 

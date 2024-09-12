@@ -66,10 +66,11 @@
 
             <tr>
               <td>{{$product->id}}</td>
-              <td {{$product->name_product}}></td>
-              <td {{$product->brand}}></td>
-              <td {{$product->model}}></td>
-              <td {{$product->price}}></td>
+              <td>{{$product->name_product}}</td>
+              <td>{{$product->brand}}</td>
+              <td>{{$product->model}}</td>
+              <td>{{$product->price}}</td>
+
 
               <td>
                     <a href="/products/edit/{{$product->id}}">edit</a>

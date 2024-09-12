@@ -51,6 +51,10 @@
 
             name="name"
           />
+          @if ($errors->has('name'))
+          <li style="color: red">{{$errors->first('name')}}</li>
+
+  @endif
         </div>
 
         <div class="mb-3 mt-3">
@@ -60,7 +64,12 @@
             class="form-control"
 
             name="brand"
+
           />
+          @if ($errors->has('brand'))
+          <li style="color: red">{{$errors->first('brand')}}</li>
+
+  @endif
         </div>
 
         <div class="mb-3 mt-3">
